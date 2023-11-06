@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/test_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.snick55.smartlist.login.presentation.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_codeFragment"
+            app:destination="@id/codeFragment">
+            <argument
+                android:name="verificationId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="com.snick55.smartlist.login.presentation.CodeFragment"
+        android:label="CodeFragment" >
+        <argument
+            android:name="verificationId"
+            app:argType="string"/>
+    </fragment>
+</navigation>

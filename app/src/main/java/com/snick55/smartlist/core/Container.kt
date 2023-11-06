@@ -51,7 +51,7 @@ sealed class Container<out T> {
 
 
     data class Error (
-        val exception: Throwable
+        val exception: java.lang.Exception
     ) : Container<Nothing>() {
 
         override suspend fun <R> suspendMap(mapper: (suspend (Nothing) -> R)?): Container<R> {

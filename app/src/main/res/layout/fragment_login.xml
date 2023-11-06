@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.snick55.smartlist.core.ResultView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/countries_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phoneEditText"
+            android:inputType="phone"
+            tools:ignore="Autofill,LabelFor"
+            android:hint="Ведите номер телефона"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:enabled="false"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:text="Продолжить"
+        android:id="@+id/enterPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</com.snick55.smartlist.core.ResultView>

@@ -1,4 +1,4 @@
-package com.snick55.smartlist.login.data
+package com.snick55.smartlist.core
 
 import com.google.firebase.auth.FirebaseAuth
 
@@ -8,7 +8,9 @@ interface FirebaseProvider {
 
     fun provideAuth(): FirebaseAuth
 
-    class FirebaseProviderImpl @Inject constructor(): com.snick55.smartlist.login.data.FirebaseProvider{
+   suspend fun isAuthorize(): Boolean
+
+    class FirebaseProviderImpl @Inject constructor(): FirebaseProvider {
 
         private var firebaseAuth: FirebaseAuth? = null
 
@@ -20,6 +22,10 @@ interface FirebaseProvider {
 
         override fun provideAuth(): FirebaseAuth {
             return firebaseAuth!!
+        }
+
+        override suspend fun isAuthorize(): Boolean {
+            return firebaseAuth!!.currentUser == null
         }
     }
 

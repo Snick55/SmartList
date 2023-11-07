@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SmartList</string>
     <string name="try_again">Попробовать снова</string>
+    <string name="profile_title">Профиль</string>
+    <string name="lists_title">Списки</string>
 </resources>

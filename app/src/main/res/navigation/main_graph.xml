@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/test_graph"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
     app:startDestination="@id/loginFragment">
 
     <fragment
@@ -10,18 +11,26 @@
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_codeFragment"
-            app:destination="@id/codeFragment">
-            <argument
-                android:name="verificationId"
-                app:argType="string"/>
-        </action>
+            app:destination="@id/codeFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeFragment"
         android:name="com.snick55.smartlist.login.presentation.CodeFragment"
         android:label="CodeFragment" >
+        <action
+            android:id="@+id/action_codeFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment" />
         <argument
             android:name="verificationId"
-            app:argType="string"/>
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.snick55.smartlist.TabsFragment"
+        android:label="tabs_fragment"
+        tools:layout="@layout/tabs_fragment" >
+        <action
+            android:id="@+id/action_tabsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

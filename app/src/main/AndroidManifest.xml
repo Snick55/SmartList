@@ -17,6 +17,7 @@
         android:name=".core.App">
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
         </activity>
 

@@ -19,6 +19,7 @@ interface ErrorHandler {
                 is FirebaseAuthMissingActivityForRecaptchaException -> RecaptchaException()
                 is FirebaseAuthInvalidCredentialsException -> InvalidRequestException()
                 is FirebaseNetworkException -> NoInternetException()
+                is AppExceptions -> e
                 else -> GenericException()
             }
             return appException

@@ -1,5 +1,6 @@
 package com.snick55.smartlist.di
 
+import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import dagger.Binds
 import dagger.Module
@@ -13,5 +14,8 @@ abstract class AppModule {
 
     @Binds
     abstract fun bindFirebaseProvider(firebaseProviderImpl: FirebaseProvider.FirebaseProviderImpl): FirebaseProvider
+
+    @Binds
+    abstract fun bindFirebaseDatabaseProvider(firebase: FirebaseDatabaseProvider.FirebaseDatabaseProviderImpl): FirebaseDatabaseProvider
 
 }

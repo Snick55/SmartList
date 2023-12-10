@@ -47,7 +47,6 @@ class ResultView @JvmOverloads constructor(
 
         binding.tryAgainButton.setOnClickListener {
             tryAgainListener?.invoke()
-
         }
     }
 

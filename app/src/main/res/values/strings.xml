@@ -3,4 +3,14 @@
     <string name="try_again">Попробовать снова</string>
     <string name="profile_title">Профиль</string>
     <string name="lists_title">Списки</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="Continue_title">Продолжить</string>
+    <string name="enter_phone_number_title">Ведите номер телефона</string>
+    <string name="enter_code_title">Ведите код</string>
+    <string name="enter_name_title">Введите имя</string>
+    <string name="field_is_empty">Пустое поле</string>
+    <string name="generic_exception">Что то пошло не так</string>
+    <string name="recaptcha_exception">Recaptcha завершилась с ошибкой</string>
+    <string name="no_internet_exception">Соединение с интернетом отсутствует</string>
+    <string name="invalid_code">"Неверный код "</string>
 </resources>

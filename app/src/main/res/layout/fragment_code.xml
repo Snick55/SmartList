@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ic_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/title_view_color"
+        app:cardCornerRadius="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/registration_title"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+    </androidx.cardview.widget.CardView>
+
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/codeInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="26dp"
+        app:boxCornerRadiusBottomEnd="32dp"
+        app:boxCornerRadiusBottomStart="32dp"
+        app:boxCornerRadiusTopEnd="32dp"
+        app:boxCornerRadiusTopStart="32dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeEditText"
+            android:hint="@string/enter_code_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Ведите код"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -23,6 +52,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="Продолжить" />
+        android:backgroundTint="@color/title_view_color"
+        android:text="@string/Continue_title"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:cornerRadius="8dp"/>
+
+    <ProgressBar
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:indeterminateTint="@color/white"
+        android:id="@+id/progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
 
 </FrameLayout>

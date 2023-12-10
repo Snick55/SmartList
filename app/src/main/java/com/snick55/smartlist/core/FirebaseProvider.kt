@@ -25,7 +25,7 @@ interface FirebaseProvider {
         }
 
         override suspend fun isAuthorize(): Boolean {
-            return firebaseAuth!!.currentUser == null
+            return firebaseAuth!!.currentUser != null
         }
     }
 

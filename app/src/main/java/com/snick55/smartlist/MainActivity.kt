@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.ktx.Firebase
 import com.snick55.smartlist.core.log
 import com.snick55.smartlist.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        setSupportActionBar(binding.toolbar)
+
 
         val navController = getRootNavController()
         prepareRootNavController(isSignedIn(), navController)
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         navController = null
         super.onDestroy()
     }
+
 
     override fun onBackPressed() {
         if (isStartDestination(navController?.currentDestination)) {
@@ -116,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isSignedIn(): Boolean {
+        log(" autorize or not ${intent.extras?.getBoolean("isAuthorize")}")
         val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
         return bundle.getBoolean("isAuthorize", false)
     }

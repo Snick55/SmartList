@@ -1,37 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.snick55.smartlist.core.ResultView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@drawable/ic_background"
+    android:fillViewport="true">
 
-
-    <TextView
-        android:id="@+id/countries_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_gravity="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneEditText"
-            android:inputType="phone"
-            tools:ignore="Autofill,LabelFor"
-            android:hint="Ведите номер телефона"
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/registr"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/title_view_color"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/registration_title"
+                android:textColor="@color/white"
+                android:textSize="32sp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:enabled="false"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center"
-        android:text="Продолжить"
-        android:id="@+id/enterPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        </androidx.cardview.widget.CardView>
 
-</com.snick55.smartlist.core.ResultView>
+        <TextView
+            android:id="@+id/countries_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registr" />
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large_space"
+            android:layout_marginBottom="@dimen/large_space"
+            app:boxCornerRadiusBottomEnd="32dp"
+            app:boxCornerRadiusBottomStart="32dp"
+            app:boxCornerRadiusTopEnd="32dp"
+            app:boxCornerRadiusTopStart="32dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintBottom_toTopOf="@id/enterPhoneNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_phone_number_title"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:lines="1"
+                tools:ignore="Autofill,LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/enterPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/gray"
+            android:enabled="false"
+            android:text="@string/Continue_title"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:layout_marginBottom="170dp"
+            android:indeterminateTint="@color/white"
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/medium_space"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+    <!--<com.snick55.smartlist.core.ResultView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:background="@drawable/ic_background">-->
+
+
+    <!--    -->
+
+    <!--    -->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_marginHorizontal="26dp"-->
+    <!--        app:boxCornerRadiusBottomEnd="32dp"-->
+    <!--        app:boxCornerRadiusBottomStart="32dp"-->
+    <!--        app:boxCornerRadiusTopEnd="32dp"-->
+    <!--        app:boxCornerRadiusTopStart="32dp"-->
+    <!--        app:boxStrokeWidth="0dp"-->
+    <!--        app:boxStrokeWidthFocused="0dp">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/phoneEditText"-->
+    <!--            android:layout_width="match_parent"-->
+
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="@string/enter_phone_number_title"-->
+    <!--            android:inputType="phone"-->
+    <!--            tools:ignore="Autofill,LabelFor" />-->
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <!--</com.snick55.smartlist.core.ResultView>-->

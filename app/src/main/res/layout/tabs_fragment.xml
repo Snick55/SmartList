@@ -24,6 +24,9 @@
         android:layout_height="wrap_content"
         app:menu="@menu/tabs_menu"
         app:defaultNavHost="true"
+        android:background="@color/gray"
+        app:itemTextColor="@drawable/bottom_nav_color"
+        app:itemIconTint="@drawable/bottom_nav_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

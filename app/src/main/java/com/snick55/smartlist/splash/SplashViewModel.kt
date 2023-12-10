@@ -29,9 +29,9 @@ class SplashViewModel @Inject constructor(
         isAuthorize()
     }
 
-   private fun isAuthorize() = viewModelScope.launch(ioDispatcher) {
-        delay(1000)
+    private fun isAuthorize() = viewModelScope.launch(ioDispatcher) {
         val isAuthorize = firebaseProvider.isAuthorize()
+        delay(1000)
         withContext(mainDispatcher) {
             _launchState.value = isAuthorize
         }

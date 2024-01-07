@@ -19,8 +19,7 @@ interface GetMainInfoUseCase {
             repository.getMainInfoFlow().catch {
                 emit(Container.Error(it))
             }.collect {
-                log("domain collect invoked")
-                emit(Container.Success(it))
+                emit(Container.Success(it.copy(name = it.name, phone = it.phone.replace("+7","8"))))
             }
         }
     }

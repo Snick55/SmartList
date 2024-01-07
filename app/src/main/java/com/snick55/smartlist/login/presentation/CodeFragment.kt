@@ -35,9 +35,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
             fillError(binding.codeInputLayout, state.codeErrorMessageRes)
             binding.progressBar.visibility =
                 if (state.showProgress) View.VISIBLE else View.INVISIBLE
-            log("state cango = ${state.canGo}")
             if (state.canGo) {
-                val directions =
                 findTopNavController().navigate(R.id.action_codeFragment_to_tabsFragment,null,
                     navOptions {
                         popUpTo(R.id.tabsFragment) {

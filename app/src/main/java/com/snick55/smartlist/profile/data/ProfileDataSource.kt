@@ -11,6 +11,9 @@ import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import com.snick55.smartlist.core.log
 import com.snick55.smartlist.profile.domain.Account
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -29,18 +32,16 @@ interface ProfileDataSource {
 
     class ProfileDataSourceImpl @Inject constructor(
         private val firebaseProvider: FirebaseProvider,
-        private val firebaseDatabaseProvider: FirebaseDatabaseProvider
+        private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
     ) : ProfileDataSource {
 
-        private var dbREf: DatabaseReference? = null
-        private val sharedFlow = MutableStateFlow(Account("", ""))
 
+        private val sharedFlow = MutableStateFlow(Account("", ""))
         private var acc: FirebaseUser? = null
 
         init {
-            dbREf = firebaseDatabaseProvider.provideDBRef()
             acc = firebaseProvider.provideAuth().currentUser
-            dbREf!!.addValueEventListener(object :
+            firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
                 ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (acc == null) return
@@ -48,25 +49,25 @@ interface ProfileDataSource {
                         ?: "") as String
                     val phone = (snapshot.child("users").child(acc!!.uid).child("phone").value
                         ?: "") as String
-                    sharedFlow.tryEmit(Account(name, phone))
+                    sharedFlow.tryEmit(Account(name, "${acc!!.phoneNumber}"))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    log("$error")
+                    sharedFlow.tryEmit(Account("$error", ""))
                 }
             })
-
         }
 
         override suspend fun changeName(name: String) {
+            delay(1000)
             if (acc == null) return
-            dbREf!!.child("users").child(acc!!.uid).child("name").setValue(name)
+            firebaseDatabaseProvider.provideDBRef().child("users").child(acc!!.uid).child("name")
+                .setValue(name)
         }
 
         override suspend fun logout() {
             firebaseProvider.provideAuth().signOut()
             acc = null
-            dbREf = null
         }
 
 

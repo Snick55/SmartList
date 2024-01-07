@@ -5,8 +5,11 @@ import com.snick55.smartlist.login.domain.entities.SignInWrapper
 
 interface LoginRepository {
 
+   suspend fun initPhone()
    suspend fun getCode(phoneRequestWrapper: PhoneRequestWrapper)
 
    suspend fun signIn(signInData: SignInWrapper)
+
+
 
 }

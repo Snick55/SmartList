@@ -1,6 +1,7 @@
 package com.snick55.smartlist.di.login
 
 import com.snick55.smartlist.login.domain.GetCodeByNumberUseCase
+import com.snick55.smartlist.login.domain.PhoneUseCase
 import com.snick55.smartlist.login.domain.SignInUseCase
 import dagger.Binds
 import dagger.Module
@@ -16,6 +17,9 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindSignInUseCase(useCase: SignInUseCase.SignInUseCaseImpl): SignInUseCase
+
+    @Binds
+    abstract fun bindPhoneUseCase(useCase: PhoneUseCase.PhoneUseCaseImpl):PhoneUseCase
 
 
 

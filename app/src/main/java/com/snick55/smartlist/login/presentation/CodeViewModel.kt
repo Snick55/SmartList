@@ -9,6 +9,7 @@ import com.snick55.smartlist.R
 import com.snick55.smartlist.core.log
 import com.snick55.smartlist.di.IoDispatcher
 import com.snick55.smartlist.di.MainDispatcher
+import com.snick55.smartlist.login.domain.PhoneUseCase
 import com.snick55.smartlist.login.domain.SignInUseCase
 import com.snick55.smartlist.login.domain.entities.SignInWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class CodeViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
     private val useCase: SignInUseCase,
+    private val phoneUseCase: PhoneUseCase
 ): ViewModel() {
 
     private val _state = MutableLiveData(State())
@@ -30,6 +32,7 @@ class CodeViewModel @Inject constructor(
     fun signInWithCode(code:String,verificationId: String) = viewModelScope.launch(ioDispatcher) {
         try {
           useCase.execute(SignInWrapper(code,verificationId))
+            phoneUseCase.execute()
             withContext(mainDispatcher){
                 _state.value = State(token = verificationId)
             }

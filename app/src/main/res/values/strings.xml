@@ -13,4 +13,5 @@
     <string name="recaptcha_exception">Recaptcha завершилась с ошибкой</string>
     <string name="no_internet_exception">Соединение с интернетом отсутствует</string>
     <string name="invalid_code">"Неверный код "</string>
+    <string name="create_new_list_content_description">Create new list</string>
 </resources>

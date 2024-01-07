@@ -14,7 +14,7 @@ interface FirebaseDatabaseProvider {
 
     class FirebaseDatabaseProviderImpl @Inject constructor(): FirebaseDatabaseProvider{
 
-        var dBRef: DatabaseReference? = null
+        private var dBRef: DatabaseReference? = null
 
         init {
             dBRef = Firebase.database.reference

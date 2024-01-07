@@ -16,4 +16,8 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun signIn(signInData: SignInWrapper) {
         firebaseDataSource.signIn(signInData.code,signInData.verificationId)
     }
+
+    override suspend fun initPhone() {
+        firebaseDataSource.initPhone()
+    }
 }

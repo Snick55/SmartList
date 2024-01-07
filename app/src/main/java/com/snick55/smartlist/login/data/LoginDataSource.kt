@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -14,12 +15,15 @@ import kotlin.coroutines.suspendCoroutine
 
 interface LoginDataSource {
 
+    suspend fun initPhone()
+
     suspend fun getCodeByNumber(phoneNumber: String, callbackActivity: FragmentActivity, phoneCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks)
 
     suspend fun signIn(code: String, verificationId: String)
 
     class FireBaseLoginSource @Inject constructor(
-        private val firebaseProvider: FirebaseProvider
+        private val firebaseProvider: FirebaseProvider,
+        private val firebaseDatabaseProvider: FirebaseDatabaseProvider
     ) : LoginDataSource {
 
         override suspend fun getCodeByNumber(
@@ -39,6 +43,12 @@ interface LoginDataSource {
         override suspend fun signIn(code: String, verificationId: String) {
             val credentials = PhoneAuthProvider.getCredential(verificationId,code)
             authResult(firebaseProvider.provideAuth().signInWithCredential(credentials))
+        }
+
+
+        override suspend fun initPhone() {
+            val currentUser = firebaseProvider.provideAuth().currentUser
+            firebaseDatabaseProvider.provideDBRef().child(currentUser!!.uid).child("phone").setValue(currentUser.phoneNumber)
         }
 
         private suspend fun authResult(pending: Task<AuthResult>) =

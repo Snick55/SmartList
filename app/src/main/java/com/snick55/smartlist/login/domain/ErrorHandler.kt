@@ -3,6 +3,7 @@ package com.snick55.smartlist.login.domain
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
+import com.snick55.smartlist.core.AppExceptions
 import java.lang.Exception
 import java.net.UnknownHostException
 import javax.inject.Inject

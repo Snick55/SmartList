@@ -4,9 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.snick55.smartlist.R
-import com.snick55.smartlist.core.App
-import com.snick55.smartlist.login.domain.*
-import java.lang.Exception
+import com.snick55.smartlist.core.AppExceptions
+import com.snick55.smartlist.login.domain.EmptyFieldException
+import com.snick55.smartlist.login.domain.Field
+import com.snick55.smartlist.login.domain.InvalidRequestException
+import com.snick55.smartlist.login.domain.NoInternetException
+import com.snick55.smartlist.login.domain.RecaptchaException
 import javax.inject.Inject
 
 interface LoginStateCommunication {

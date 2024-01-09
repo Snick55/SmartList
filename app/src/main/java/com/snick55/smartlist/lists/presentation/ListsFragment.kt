@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.snick55.smartlist.R
+import com.snick55.smartlist.core.observe
 import com.snick55.smartlist.core.viewBinding
 import com.snick55.smartlist.databinding.FragmentListsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,10 +21,14 @@ class ListsFragment: Fragment(R.layout.fragment_lists) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ListsAdapter()
-        viewModel.setData(adapter)
         binding.listsRecyclerView.adapter = adapter
 
-
+        binding.root.observe(viewLifecycleOwner,viewModel.lists) {
+            adapter.submitList(it)
+        }
+        binding.root.setTryAgainListener {
+            viewModel.tryAgain()
+        }
     }
 
 

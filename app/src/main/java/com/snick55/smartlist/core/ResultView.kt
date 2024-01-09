@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.snick55.smartlist.databinding.ResultViewBinding
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class ResultView @JvmOverloads constructor(
     context: Context,
@@ -65,7 +71,7 @@ class ResultView @JvmOverloads constructor(
             binding.resultErrorTextView.text = exception.message
         }
         children.forEach {
-            if (it != binding.root) {
+            if (it != binding.root && it !is FloatingActionButton ) {
                 it.isVisible = container is Container.Success
             }
         }
@@ -84,3 +90,21 @@ fun <T> ResultView.observe(
         }
     }
 }
+
+fun <T> ResultView.observe(
+    owner: LifecycleOwner,
+    liveFlow: Flow<Container<T>>,
+    onSuccess: (T) -> Unit
+){
+    owner.lifecycleScope.launch {
+        owner.repeatOnLifecycle(Lifecycle.State.CREATED){
+            liveFlow.collect {
+                container = it
+                if (it is Container.Success) {
+                    onSuccess(it.unwrap())
+                }
+            }
+        }
+    }
+}
+

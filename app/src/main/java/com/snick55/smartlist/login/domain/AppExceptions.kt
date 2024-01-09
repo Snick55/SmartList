@@ -1,6 +1,7 @@
 package com.snick55.smartlist.login.domain
 
-open class AppExceptions(errorMessage: String): java.lang.Exception(errorMessage)
+import com.snick55.smartlist.core.AppExceptions
+
 
 class InvalidRequestException: AppExceptions("Некорректный запрос")
 class RecaptchaException: AppExceptions("Recaptcha завершилась с ошибкой")

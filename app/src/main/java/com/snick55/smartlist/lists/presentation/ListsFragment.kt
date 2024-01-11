@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.snick55.smartlist.R
 import com.snick55.smartlist.core.observe
 import com.snick55.smartlist.core.viewBinding
@@ -26,6 +27,12 @@ class ListsFragment: Fragment(R.layout.fragment_lists) {
         binding.root.observe(viewLifecycleOwner,viewModel.lists) {
             adapter.submitList(it)
         }
+
+
+        binding.addNewList.setOnClickListener {
+            findNavController().navigate(R.id.action_listsFragment_to_addListFragment)
+        }
+
         binding.root.setTryAgainListener {
             viewModel.tryAgain()
         }

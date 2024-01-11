@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/listsFragment"
         android:name="com.snick55.smartlist.lists.presentation.ListsFragment"
-        android:label="ListsFragment" />
+        android:label="ListsFragment" >
+        <action
+            android:id="@+id/action_listsFragment_to_addListFragment"
+            app:destination="@id/addListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addListFragment"
+        android:name="com.snick55.smartlist.lists.presentation.AddListFragment"
+        android:label="AddListFragment" />
 </navigation>

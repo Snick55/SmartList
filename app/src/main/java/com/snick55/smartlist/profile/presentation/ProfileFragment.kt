@@ -45,7 +45,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
 
         binding.root.observe(viewLifecycleOwner, viewModel.account) {
-            log("account is $it")
             curName = it.name
             binding.nameTV.text = it.name
             binding.numberTV.text = it.phone

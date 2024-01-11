@@ -118,7 +118,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isSignedIn(): Boolean {
-        log(" autorize or not ${intent.extras?.getBoolean("isAuthorize")}")
         val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
         return bundle.getBoolean("isAuthorize", false)
     }

@@ -14,7 +14,17 @@
         android:layout_gravity="bottom|center"
         android:backgroundTint="@color/title_view_color"
         android:layout_width="195dp"
-        android:layout_height="37dp"/>
+        android:layout_height="37dp">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:textColor="@color/secondary_background"
+            android:textStyle="bold"
+            android:layout_gravity="bottom|center"
+            tools:text="21.01.2001"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.cardview.widget.CardView>
     
     <androidx.cardview.widget.CardView
         android:layout_marginBottom="20dp"

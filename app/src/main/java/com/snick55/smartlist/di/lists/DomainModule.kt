@@ -1,5 +1,6 @@
 package com.snick55.smartlist.di.lists
 
+import com.snick55.smartlist.lists.domain.CreateNewListUseCase
 import com.snick55.smartlist.lists.domain.GetAllListsUseCase
 import dagger.Binds
 import dagger.Module
@@ -12,5 +13,8 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetAllListsUseCase(useCase: GetAllListsUseCase.GetAllListsUseCaseImpl): GetAllListsUseCase
+
+    @Binds
+    abstract fun bindCreateNewListUseCase(useCase: CreateNewListUseCase.CreateNewListUseCaseImpl): CreateNewListUseCase
 
 }

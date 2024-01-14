@@ -26,6 +26,7 @@ class ListsFragment: Fragment(R.layout.fragment_lists) {
 
         binding.root.observe(viewLifecycleOwner,viewModel.lists) {
             adapter.submitList(it)
+            binding.listsRecyclerView.layoutManager!!.smoothScrollToPosition(binding.listsRecyclerView,null,0)
         }
 
 
@@ -37,6 +38,5 @@ class ListsFragment: Fragment(R.layout.fragment_lists) {
             viewModel.tryAgain()
         }
     }
-
 
 }

@@ -3,6 +3,7 @@ package com.snick55.smartlist.core
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.children
 import androidx.core.view.isVisible
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.snick55.smartlist.databinding.ResultViewBinding
+import com.snick55.smartlist.lists.domain.EmptyListsException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -68,6 +70,9 @@ class ResultView @JvmOverloads constructor(
 
         if (container is Container.Error) {
             val exception = container.exception
+            if (exception is EmptyListsException){
+                binding.tryAgainButton.visibility = View.INVISIBLE
+            }
             binding.resultErrorTextView.text = exception.message
         }
         children.forEach {

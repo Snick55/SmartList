@@ -13,8 +13,10 @@ class ListsAdapter: ListAdapter<ListItemUi, ListsAdapter.MyViewHolder>(ListUiDif
     inner class MyViewHolder(private val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(itemUi: ListItemUi){
             binding.nameTV.text = itemUi.name
+            binding.dateTextView.text = itemUi.date
         }
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

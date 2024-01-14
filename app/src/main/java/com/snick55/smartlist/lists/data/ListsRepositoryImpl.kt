@@ -21,4 +21,8 @@ class ListsRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun createNewList(listName: String) {
+        listsDataSource.createList(listName)
+    }
 }

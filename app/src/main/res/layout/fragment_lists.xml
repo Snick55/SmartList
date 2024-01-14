@@ -10,10 +10,10 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:background="@null"
-            app:elevation="0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@null"
+            app:elevation="0dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/allListsCardView"
@@ -36,27 +36,23 @@
             </androidx.cardview.widget.CardView>
         </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                android:id="@+id/listsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                 />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addNewList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="@dimen/medium_space"
-                android:contentDescription="@string/create_new_list_content_description"
-                android:src="@drawable/ic_add" />
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/medium_space"
+        android:contentDescription="@string/create_new_list_content_description"
+        android:src="@drawable/ic_add" />
 
 </com.snick55.smartlist.core.ResultView>

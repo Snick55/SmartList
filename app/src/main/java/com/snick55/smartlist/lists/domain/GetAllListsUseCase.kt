@@ -1,12 +1,11 @@
 package com.snick55.smartlist.lists.domain
 
 import com.snick55.smartlist.core.Container
-import com.snick55.smartlist.core.log
-import com.snick55.smartlist.login.domain.EmptyFieldException
-import com.snick55.smartlist.login.domain.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import java.text.SimpleDateFormat
+import java.util.Date
 import javax.inject.Inject
 
 interface GetAllListsUseCase {
@@ -23,9 +22,22 @@ interface GetAllListsUseCase {
             }.collect {
                 if (it.unwrap().isEmpty()) {
                     emit(Container.Error(EmptyListsException()))
-                }
-                else
-                    emit(it)
+                } else
+                    emit(it.map { list ->
+                        list.sortedBy { itemDomain ->
+                            itemDomain.date
+                        }
+                            .reversed()
+                            .map { itemDomain ->
+                            itemDomain.copy(
+                                date = SimpleDateFormat("dd.MM.yyyy").format(
+                                    Date(
+                                        itemDomain.date.toLong()
+                                    )
+                                )
+                            )
+                        }
+                    })
             }
         }
     }

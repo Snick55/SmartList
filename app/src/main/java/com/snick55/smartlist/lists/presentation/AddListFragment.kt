@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.snick55.smartlist.R
 import com.snick55.smartlist.core.viewBinding
 import com.snick55.smartlist.databinding.FragmentAddListBinding
@@ -21,6 +22,7 @@ class AddListFragment : Fragment(R.layout.fragment_add_list) {
 
         binding.createListButton.setOnClickListener {
             viewModel.createList(binding.nameET.text.toString())
+            findNavController().popBackStack()
         }
     }
 

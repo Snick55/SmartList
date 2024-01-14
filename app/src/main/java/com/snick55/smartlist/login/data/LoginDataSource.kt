@@ -48,7 +48,7 @@ interface LoginDataSource {
 
         override suspend fun initPhone() {
             val currentUser = firebaseProvider.provideAuth().currentUser
-            firebaseDatabaseProvider.provideDBRef().child(currentUser!!.uid).child("phone").setValue(currentUser.phoneNumber)
+            firebaseDatabaseProvider.provideDBRef().child("users").child(currentUser!!.uid).child("phone").setValue(currentUser.phoneNumber)
         }
 
         private suspend fun authResult(pending: Task<AuthResult>) =

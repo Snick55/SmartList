@@ -7,4 +7,6 @@ interface ListsRepository {
 
     fun getAllLists(): Flow<Container<List<ListItemDomain>>>
 
+    suspend fun createNewList(listName: String)
+
 }

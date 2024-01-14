@@ -16,4 +16,5 @@
     <string name="create_new_list_content_description">Create new list</string>
     <string name="done_cont_desc">done</string>
     <string name="all_lists_title">Все списки</string>
+    <string name="create_new_list">Создайте свой первый список</string>
 </resources>

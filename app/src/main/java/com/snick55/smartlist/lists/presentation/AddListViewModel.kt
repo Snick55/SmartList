@@ -1,27 +1,26 @@
 package com.snick55.smartlist.lists.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
+import com.snick55.smartlist.di.IoDispatcher
+import com.snick55.smartlist.lists.domain.CreateNewListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.UUID
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddListViewModel @Inject constructor(
     private val firebaseProvider: FirebaseProvider,
     private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
+    private val createNewListUseCase: CreateNewListUseCase,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-
-
-
-    fun createList(name:String){
-        val uuid = UUID.randomUUID()
-        firebaseDatabaseProvider.provideDBRef().child("newList").child(firebaseProvider.provideAuth().currentUser!!.uid).child("$uuid").child("name").setValue(name)
-        firebaseDatabaseProvider.provideDBRef().child("newList").child(firebaseProvider.provideAuth().currentUser!!.uid).child("$uuid").child("date").setValue(System.currentTimeMillis())
-
-
+    fun createList(name:String)= viewModelScope.launch(ioDispatcher){
+        createNewListUseCase.execute(name)
     }
 
 }

@@ -21,7 +21,10 @@ class ListsFragment: Fragment(R.layout.fragment_lists) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ListsAdapter()
+        val adapter = ListsAdapter(onListClicked = {id,name->
+            val action = ListsFragmentDirections.actionListsFragmentToFragmentListDetails(id,name)
+            findNavController().navigate(action)
+        })
         binding.listsRecyclerView.adapter = adapter
 
         binding.root.observe(viewLifecycleOwner,viewModel.lists) {

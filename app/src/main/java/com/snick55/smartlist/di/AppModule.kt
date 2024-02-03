@@ -1,5 +1,6 @@
 package com.snick55.smartlist.di
 
+import com.snick55.smartlist.core.DateFormater
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import dagger.Binds
@@ -17,5 +18,8 @@ abstract class AppModule {
 
     @Binds
     abstract fun bindFirebaseDatabaseProvider(firebase: FirebaseDatabaseProvider.FirebaseDatabaseProviderImpl): FirebaseDatabaseProvider
+
+    @Binds
+    abstract fun bindDateFormater(dateFormater: DateFormater.DateFormaterImpl): DateFormater
 
 }

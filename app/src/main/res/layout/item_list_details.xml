@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="6dp">
+    android:layout_marginTop="6dp"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="195dp"
+        android:layout_width="225dp"
         android:layout_height="37dp"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="64dp"
         android:backgroundTint="@color/title_view_color"
         app:cardCornerRadius="@dimen/large_space">
 
@@ -18,37 +20,59 @@
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:textColor="@color/secondary_background"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/large_space"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            tools:text="21.01.2001" />
+            tools:text="21.01.2001 - 02/02/2024" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="20dp">
 
-        <TextView
-            android:id="@+id/nameTV"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="94dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/black"
-            tools:text="siamndlknda" />
+            android:layout_marginStart="96dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                tools:text="siamndlknda" />
+
+            <TextView
+                android:id="@+id/countTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="siamndlknda" />
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="91dp"
         android:layout_height="82dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp">
@@ -61,6 +85,7 @@
             app:cardCornerRadius="20dp">
 
             <ImageView
+                android:id="@+id/isItemDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +93,8 @@
                 android:src="@drawable/ic_list_done"
                 android:visibility="gone" />
         </androidx.cardview.widget.CardView>
+
     </androidx.cardview.widget.CardView>
+
 
 </FrameLayout>

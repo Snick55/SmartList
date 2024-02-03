@@ -3,13 +3,14 @@ package com.snick55.smartlist.core
 import com.google.firebase.auth.FirebaseAuth
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface FirebaseProvider {
 
     fun provideAuth(): FirebaseAuth
 
    suspend fun isAuthorize(): Boolean
-
+    @Singleton
     class FirebaseProviderImpl @Inject constructor(): FirebaseProvider {
 
         private var firebaseAuth: FirebaseAuth? = null

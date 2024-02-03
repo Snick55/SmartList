@@ -11,9 +11,32 @@
         <action
             android:id="@+id/action_listsFragment_to_addListFragment"
             app:destination="@id/addListFragment" />
+        <action
+            android:id="@+id/action_listsFragment_to_fragmentListDetails"
+            app:destination="@id/fragmentListDetails" >
+            <argument
+                android:name="listId"
+                app:argType="string" />
+            <argument
+                android:name="listName"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addListFragment"
         android:name="com.snick55.smartlist.lists.presentation.AddListFragment"
         android:label="AddListFragment" />
+    <fragment
+        android:id="@+id/fragmentListDetails"
+        android:name="com.snick55.smartlist.lists.presentation.FragmentListDetails"
+        android:label="FragmentListDetails" >
+
+        <argument
+            android:name="listId"
+            app:argType="string" />
+        <argument
+            android:name="listName"
+            app:argType="string" />
+
+    </fragment>
 </navigation>

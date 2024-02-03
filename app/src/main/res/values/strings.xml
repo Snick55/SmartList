@@ -13,8 +13,11 @@
     <string name="recaptcha_exception">Recaptcha завершилась с ошибкой</string>
     <string name="no_internet_exception">Соединение с интернетом отсутствует</string>
     <string name="invalid_code">"Неверный код "</string>
-    <string name="create_new_list_content_description">Create new list</string>
+    <string name="create_new_list_content_description">создать новый список</string>
     <string name="done_cont_desc">done</string>
     <string name="all_lists_title">Все списки</string>
     <string name="create_new_list">Создайте свой первый список</string>
+    <string name="go_back_content_desc">назад</string>
+    <string name="add_members_cont_desc">добавить пользователей</string>
+    <string name="details_item_date">%1$s - %2$s</string>
 </resources>

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.UUID
 import javax.inject.Inject
 
+
 interface ListsDataSource {
     fun getAllLists(): Flow<Container<List<ListItemData>>>
 
@@ -44,6 +45,7 @@ interface ListsDataSource {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
+
                         Container.Error(GenericException())
                     }
                 })

@@ -29,6 +29,11 @@ class FragmentListDetails: Fragment(R.layout.fragment_list_details) {
         binding.goBackButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.addProductButton.setOnClickListener {
+            val action = FragmentListDetailsDirections.actionFragmentListDetailsToFragmentCreateProduct()
+            findNavController().navigate(action)
+        }
         val adapter = DetailsAdapter()
 
         lifecycleScope.launch {

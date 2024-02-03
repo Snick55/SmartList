@@ -37,6 +37,13 @@
         <argument
             android:name="listName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentListDetails_to_fragmentCreateProduct"
+            app:destination="@id/fragmentCreateProduct" />
 
     </fragment>
+    <fragment
+        android:id="@+id/fragmentCreateProduct"
+        android:name="com.snick55.smartlist.createProducts.presentation.FragmentCreateProduct"
+        android:label="FragmentCreateProduct" />
 </navigation>

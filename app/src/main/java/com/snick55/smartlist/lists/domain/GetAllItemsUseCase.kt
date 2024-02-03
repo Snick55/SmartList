@@ -19,8 +19,16 @@ interface GetAllItemsUseCase {
             return repository.getAllItems(listId).map { listDomain ->
                 listDomain.map {
                     it.copy(
-                        dateFrom = dateFormater.format(it.dateFrom.toLong()),
-                        dateTo = dateFormater.format(it.dateTo.toLong())
+                        dateFrom = try {
+                            dateFormater.format(it.dateFrom.toLong())
+                        } catch (e: Exception) {
+                            it.dateFrom
+                        },
+                        dateTo = try {
+                            dateFormater.format(it.dateTo.toLong())
+                        } catch (e: Exception) {
+                            it.dateTo
+                        }
                     )
                 }
             }

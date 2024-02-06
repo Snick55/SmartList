@@ -6,6 +6,7 @@ import com.google.firebase.database.ValueEventListener
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import com.snick55.smartlist.core.log
+import com.snick55.smartlist.members.data.MemberData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.UUID
@@ -17,21 +18,24 @@ interface DetailsDataSource {
     fun getAllItems(listId: String): Flow<List<DetailsItemData>>
     suspend fun createProduct(name: String, count: String, dateFrom: String, dateTo: String)
 
-@Singleton
+    suspend fun getAllMembers(): Flow<List<MemberData>>
+
+    @Singleton
     class DetailsDataSourceImpl @Inject constructor(
         private val firebaseProvider: FirebaseProvider,
         private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
     ) : DetailsDataSource {
 
-        private val sharedFlow = MutableStateFlow<List<DetailsItemData>>(
+        private val sharedFlowDetails = MutableStateFlow<List<DetailsItemData>>(
             emptyList()
         )
 
+        private val sharedFlowMembers = MutableStateFlow<List<MemberData>>(
+            emptyList()
+        )
         private var currentListId = ""
 
         override fun getAllItems(listId: String): Flow<List<DetailsItemData>> {
-            log("invoked")
-
             val currentUser = firebaseProvider.provideAuth().currentUser
             currentListId = listId
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
@@ -58,14 +62,14 @@ interface DetailsDataSource {
                                 )
                             )
                         }
-                    sharedFlow.tryEmit(list)
+                    sharedFlowDetails.tryEmit(list)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     log("DetailsDataSource exception $error")
                 }
             })
-            return sharedFlow
+            return sharedFlowDetails
         }
 
         override suspend fun createProduct(
@@ -86,6 +90,29 @@ interface DetailsDataSource {
             ref.child("dateTo").setValue(dateTo)
             ref.child("isDone").setValue(false)
 
+        }
+
+            override suspend fun getAllMembers(): Flow<List<MemberData>> {
+            val membersList = mutableListOf<MemberData>()
+            firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
+                ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid)
+                        .child(currentListId).child("members").children.forEach{
+                            val userId = it.key ?: return
+                            val name = snapshot.child("users").child(userId).child("name").value ?: ""
+                            val phone = snapshot.child("users").child(userId).child("phone").value ?: ""
+                            membersList.add(MemberData(name as String,phone as String,userId))
+                        }
+                    sharedFlowMembers.tryEmit(membersList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    log("getAllMembers error = $error")
+                }
+
+            })
+            return sharedFlowMembers
         }
     }
 

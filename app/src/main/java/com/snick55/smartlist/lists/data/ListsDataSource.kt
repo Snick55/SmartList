@@ -6,6 +6,7 @@ import com.google.firebase.database.ValueEventListener
 import com.snick55.smartlist.core.Container
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
+import com.snick55.smartlist.core.log
 import com.snick55.smartlist.login.domain.GenericException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +30,6 @@ interface ListsDataSource {
 
         init {
             val acc = firebaseProvider.provideAuth().currentUser
-
                 firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
                     ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -52,9 +52,11 @@ interface ListsDataSource {
         }
 
         override suspend fun createList(listName: String) {
+            val userId = firebaseProvider.provideAuth().currentUser!!.uid
             val uuid = UUID.randomUUID()
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid).child("$uuid").child("name").setValue(listName)
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid).child("$uuid").child("date").setValue("${System.currentTimeMillis()}")
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("name").setValue(listName)
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("members").child(userId).setValue(userId)
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("date").setValue("${System.currentTimeMillis()}")
         }
 
         override fun getAllLists(): Flow<Container<List<ListItemData>>> =  sharedFlow

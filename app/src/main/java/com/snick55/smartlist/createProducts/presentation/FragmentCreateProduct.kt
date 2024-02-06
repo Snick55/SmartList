@@ -30,7 +30,7 @@ class FragmentCreateProduct: Fragment(R.layout.fragment_create_product) {
                 binding.nameInputLayout.error = getString(R.string.field_is_empty)
                 return@setOnClickListener
             }
-            val name = binding.nameEditText.text.toString()
+            val name = binding.nameEditText.text.toString().trim()
             val count = binding.countEditText.text?.toString()
             val dateFrom = binding.dateFromEditText.text?.toString()
             val dateTo = binding.dateToEditText.text?.toString()

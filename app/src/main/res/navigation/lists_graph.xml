@@ -40,10 +40,17 @@
         <action
             android:id="@+id/action_fragmentListDetails_to_fragmentCreateProduct"
             app:destination="@id/fragmentCreateProduct" />
+        <action
+            android:id="@+id/action_fragmentListDetails_to_membersFragment"
+            app:destination="@id/membersFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/fragmentCreateProduct"
         android:name="com.snick55.smartlist.createProducts.presentation.FragmentCreateProduct"
         android:label="FragmentCreateProduct" />
+    <fragment
+        android:id="@+id/membersFragment"
+        android:name="com.snick55.smartlist.members.presentation.MembersFragment"
+        android:label="MembersFragment" />
 </navigation>

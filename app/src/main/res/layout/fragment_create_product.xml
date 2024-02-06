@@ -130,7 +130,7 @@
                 android:id="@+id/countEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/enter_name_of_product"
+                android:hint="@string/enter_product_count"
                 android:imeOptions="actionNext" />
 
         </com.google.android.material.textfield.TextInputLayout>

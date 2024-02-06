@@ -30,6 +30,11 @@ class FragmentListDetails: Fragment(R.layout.fragment_list_details) {
             findNavController().popBackStack()
         }
 
+        binding.membersButton.setOnClickListener {
+            val action = FragmentListDetailsDirections.actionFragmentListDetailsToMembersFragment()
+            findNavController().navigate(action)
+        }
+
         binding.addProductButton.setOnClickListener {
             val action = FragmentListDetailsDirections.actionFragmentListDetailsToFragmentCreateProduct()
             findNavController().navigate(action)
@@ -43,6 +48,7 @@ class FragmentListDetails: Fragment(R.layout.fragment_list_details) {
                 }
             }
         }
+
 
         binding.itemsRecyclerView.adapter = adapter
     }

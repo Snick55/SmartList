@@ -6,6 +6,8 @@ import com.snick55.smartlist.lists.data.ListsDataSource
 import com.snick55.smartlist.lists.data.ListsRepositoryImpl
 import com.snick55.smartlist.lists.domain.DetailsRepository
 import com.snick55.smartlist.lists.domain.ListsRepository
+import com.snick55.smartlist.members.data.MembersRepositoryImpl
+import com.snick55.smartlist.members.domain.MembersRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,4 +28,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindDetailsDataSource(dataSource: DetailsDataSource.DetailsDataSourceImpl): DetailsDataSource
+
+    @Binds
+    abstract fun bindMembersRepository(repository: MembersRepositoryImpl): MembersRepository
 }

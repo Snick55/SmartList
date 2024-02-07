@@ -51,15 +51,16 @@ interface DetailsDataSource {
                             val dateTo = it.child("dateTo").value ?: return
                             val count = it.child("count").value.toString()
                             val isDone = it.child("isDone").value ?: false
+                            val itemData = DetailsItemData(
+                                id,
+                                name,
+                                count,
+                                dateFrom.toString(),
+                                dateTo.toString(),
+                                isDone as Boolean
+                            )
                             list.add(
-                                DetailsItemData(
-                                    id,
-                                    name,
-                                    count,
-                                    dateFrom.toString(),
-                                    dateTo.toString(),
-                                    isDone as Boolean
-                                )
+                               itemData
                             )
                         }
                     sharedFlowDetails.tryEmit(list)
@@ -93,10 +94,10 @@ interface DetailsDataSource {
         }
 
             override suspend fun getAllMembers(): Flow<List<MemberData>> {
-            val membersList = mutableListOf<MemberData>()
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
                 ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    val membersList = mutableListOf<MemberData>()
                     snapshot.child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid)
                         .child(currentListId).child("members").children.forEach{
                             val userId = it.key ?: return

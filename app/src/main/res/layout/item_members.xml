@@ -37,9 +37,9 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="271dp"
+            android:layout_width="match_parent"
             android:layout_height="37dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginHorizontal="60dp"
             android:backgroundTint="@color/title_view_color"
             app:cardCornerRadius="20dp">
 

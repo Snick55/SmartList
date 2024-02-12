@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
+import com.snick55.smartlist.core.PreferenceSource
 import com.snick55.smartlist.profile.domain.Account
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,7 @@ interface ProfileDataSource {
     class ProfileDataSourceImpl @Inject constructor(
         private val firebaseProvider: FirebaseProvider,
         private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
+        private val preferenceSource: PreferenceSource<String>
     ) : ProfileDataSource {
 
 
@@ -53,6 +55,7 @@ interface ProfileDataSource {
         override suspend fun changeName(name: String) {
             delay(1000)
             if (acc == null) return
+            preferenceSource.putValue(name)
             firebaseDatabaseProvider.provideDBRef().child("users").child(acc!!.uid).child("name")
                 .setValue(name)
         }

@@ -52,5 +52,13 @@
     <fragment
         android:id="@+id/membersFragment"
         android:name="com.snick55.smartlist.members.presentation.MembersFragment"
-        android:label="MembersFragment" />
+        android:label="MembersFragment" >
+        <action
+            android:id="@+id/action_membersFragment_to_addMembersFragment"
+            app:destination="@id/addMembersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMembersFragment"
+        android:name="com.snick55.smartlist.members.presentation.AddMembersFragment"
+        android:label="AddMembersFragment" />
 </navigation>

@@ -21,11 +21,18 @@ class MembersFragment: Fragment(R.layout.fragment_members) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadMembers()
 
+        binding.addMemberButton.setOnClickListener {
+            val action = MembersFragmentDirections.actionMembersFragmentToAddMembersFragment()
+            findNavController().navigate(action)
+        }
+
         binding.goBackButton.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        val adapter = MembersAdapter()
+        val adapter = MembersAdapter(onItemClicked = {
+
+        })
         binding.membersRecyclerView.adapter = adapter
         viewModel.members.observe(viewLifecycleOwner){
 

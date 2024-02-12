@@ -3,6 +3,7 @@ package com.snick55.smartlist.di
 import com.snick55.smartlist.core.DateFormater
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
+import com.snick55.smartlist.core.PreferenceSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,5 +22,8 @@ abstract class AppModule {
 
     @Binds
     abstract fun bindDateFormater(dateFormater: DateFormater.DateFormaterImpl): DateFormater
+
+    @Binds
+    abstract fun bindPreferenceSource(preferenceSource: PreferenceSource.NamePreferenceSource): PreferenceSource<String>
 
 }

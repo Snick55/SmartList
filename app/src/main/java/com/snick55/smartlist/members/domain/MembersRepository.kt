@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MembersRepository {
 
-    suspend fun getAllMembers(): Flow<List<MemberDomain>>
+     fun getAllMembersInList(): Flow<List<MemberDomain>>
+
+     fun getAllMembers(): Flow<List<MemberDomain>>
 
 }

@@ -7,6 +7,8 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
+import com.snick55.smartlist.core.PreferenceSource
+import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -23,7 +25,8 @@ interface LoginDataSource {
 
     class FireBaseLoginSource @Inject constructor(
         private val firebaseProvider: FirebaseProvider,
-        private val firebaseDatabaseProvider: FirebaseDatabaseProvider
+        private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
+        private val preferenceSource: PreferenceSource<String>
     ) : LoginDataSource {
 
         override suspend fun getCodeByNumber(
@@ -47,8 +50,11 @@ interface LoginDataSource {
 
 
         override suspend fun initPhone() {
-            val currentUser = firebaseProvider.provideAuth().currentUser
-            firebaseDatabaseProvider.provideDBRef().child("users").child(currentUser!!.uid).child("phone").setValue(currentUser.phoneNumber)
+            val currentUser = firebaseProvider.provideAuth().currentUser ?: throw IllegalStateException("current user cant be null")
+            firebaseDatabaseProvider.provideDBRef().child("users").child(currentUser.uid).child("phone").setValue(currentUser.phoneNumber)
+            firebaseDatabaseProvider.provideDBRef().child("usersByPhone").child("${currentUser.phoneNumber}").child("name").setValue(preferenceSource.getValue())
+            firebaseDatabaseProvider.provideDBRef().child("usersByPhone").child("${currentUser.phoneNumber}").child("userID").setValue(currentUser.uid)
+
         }
 
         private suspend fun authResult(pending: Task<AuthResult>) =

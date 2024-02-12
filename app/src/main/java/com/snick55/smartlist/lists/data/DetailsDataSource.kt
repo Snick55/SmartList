@@ -7,8 +7,11 @@ import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import com.snick55.smartlist.core.log
 import com.snick55.smartlist.members.data.MemberData
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.shareIn
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +21,9 @@ interface DetailsDataSource {
     fun getAllItems(listId: String): Flow<List<DetailsItemData>>
     suspend fun createProduct(name: String, count: String, dateFrom: String, dateTo: String)
 
-    suspend fun getAllMembers(): Flow<List<MemberData>>
+     fun getAllMembersInList(): Flow<List<MemberData>>
+
+    fun getAllMembers(): Flow<List<MemberData>>
 
     @Singleton
     class DetailsDataSourceImpl @Inject constructor(
@@ -30,9 +35,14 @@ interface DetailsDataSource {
             emptyList()
         )
 
-        private val sharedFlowMembers = MutableStateFlow<List<MemberData>>(
+        private val sharedFlowMembersInList = MutableStateFlow<List<MemberData>>(
             emptyList()
         )
+
+        private val sharedFlowMembers = MutableSharedFlow<List<MemberData>>(
+            replay = 1, extraBufferCapacity = 1 ,onBufferOverflow = BufferOverflow.DROP_LATEST
+        )
+
         private var currentListId = ""
 
         override fun getAllItems(listId: String): Flow<List<DetailsItemData>> {
@@ -93,7 +103,7 @@ interface DetailsDataSource {
 
         }
 
-            override suspend fun getAllMembers(): Flow<List<MemberData>> {
+            override  fun getAllMembersInList(): Flow<List<MemberData>> {
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
                 ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -105,6 +115,30 @@ interface DetailsDataSource {
                             val phone = snapshot.child("users").child(userId).child("phone").value ?: ""
                             membersList.add(MemberData(name as String,phone as String,userId))
                         }
+                    sharedFlowMembersInList.tryEmit(membersList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    log("getAllMembers error = $error")
+                }
+
+            })
+            return sharedFlowMembersInList
+        }
+
+
+        override fun getAllMembers(): Flow<List<MemberData>> {
+            firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
+                ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val membersList = mutableListOf<MemberData>()
+                    snapshot.child("usersByPhone").children.forEach {
+                        val phone = it.key ?: return
+                        val name = it.child("name").value ?: ""
+                        val userId = it.child("userID").value ?:""
+                        val member = MemberData(name as String,phone,userId as String)
+                        membersList.add(member)
+                    }
                     sharedFlowMembers.tryEmit(membersList)
                 }
 

@@ -1,5 +1,6 @@
 package com.snick55.smartlist.members.data
 
+import com.snick55.smartlist.core.log
 import com.snick55.smartlist.lists.data.DetailsDataSource
 import com.snick55.smartlist.members.domain.MemberDomain
 import com.snick55.smartlist.members.domain.MembersRepository
@@ -12,11 +13,20 @@ class MembersRepositoryImpl @Inject constructor(
 ): MembersRepository {
 
 
-    override suspend fun getAllMembers(): Flow<List<MemberDomain>> {
-        return detailsDataSource.getAllMembers().map {listMembersDomain->
+    override  fun getAllMembersInList(): Flow<List<MemberDomain>> {
+
+        return detailsDataSource.getAllMembersInList().map { listMembersDomain->
             listMembersDomain.map {
                 MemberDomain(it.name,it.phoneNumber)
             }
         }
+    }
+
+    override  fun getAllMembers(): Flow<List<MemberDomain>> {
+      return  detailsDataSource.getAllMembers().map {listMembersDomain->
+          listMembersDomain.map {
+              MemberDomain(it.name,it.phoneNumber)
+          }
+      }
     }
 }

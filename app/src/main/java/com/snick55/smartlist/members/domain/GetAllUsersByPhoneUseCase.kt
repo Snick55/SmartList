@@ -20,13 +20,18 @@ interface GetAllUsersByPhoneUseCase {
     ) : GetAllUsersByPhoneUseCase {
 
         override suspend fun execute(phoneNumber: String): Flow<List<MemberDomain>> = flow {
-            repository.getAllMembers().map {listDomain ->
+            val phoneNum = if (phoneNumber.startsWith("8"))
+                "+7${phoneNumber.substring(1)}"
+            else
+                phoneNumber
+
+            repository.getAllMembers().map { listDomain ->
                 listDomain.filter {
-                    it.phoneNumber.startsWith(phoneNumber)
+                    it.phoneNumber.startsWith(phoneNum)
                 }
             }
                 .collect { listDomain ->
-                    if (listDomain.isEmpty()) throw EmptyListsException()
+                    if (listDomain.isEmpty()) throw NoOneUserException()
                     emit(listDomain)
                 }
         }

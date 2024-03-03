@@ -3,6 +3,7 @@ package com.snick55.smartlist.di.lists
 import com.snick55.smartlist.lists.domain.CreateNewListUseCase
 import com.snick55.smartlist.lists.domain.GetAllItemsUseCase
 import com.snick55.smartlist.lists.domain.GetAllListsUseCase
+import com.snick55.smartlist.members.domain.AddMemberToListUseCase
 import com.snick55.smartlist.members.domain.GetAllMembersUseCase
 import com.snick55.smartlist.members.domain.GetAllUsersByPhoneUseCase
 import dagger.Binds
@@ -28,6 +29,9 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetAllUsersByPhoneUseCase(useCase: GetAllUsersByPhoneUseCase.GetAllUsersByPhoneUseCaseImpl): GetAllUsersByPhoneUseCase
+
+    @Binds
+    abstract fun bindAddMemberToListUseCase(useCase: AddMemberToListUseCase.AddMemberToListUseCaseImpl): AddMemberToListUseCase
 
 
 }

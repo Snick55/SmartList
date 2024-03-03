@@ -58,6 +58,8 @@ interface ProfileDataSource {
             preferenceSource.putValue(name)
             firebaseDatabaseProvider.provideDBRef().child("users").child(acc!!.uid).child("name")
                 .setValue(name)
+            firebaseDatabaseProvider.provideDBRef().child("usersByPhone").child("${acc!!.phoneNumber}").child("name")
+                .setValue(name)
         }
 
         override suspend fun logout() {

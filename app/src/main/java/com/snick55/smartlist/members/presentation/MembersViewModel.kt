@@ -27,7 +27,7 @@ class MembersViewModel @Inject constructor(
         getAllMembersUseCase.execute().collectLatest {
             withContext(mainDispatcher) {
                 _members.value = it.map {
-                    MemberUi(it.name, it.phoneNumber)
+                    MemberUi(it.name, it.phoneNumber,it.UUID)
                 }
             }
         }

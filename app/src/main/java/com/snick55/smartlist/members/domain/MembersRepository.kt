@@ -8,4 +8,6 @@ interface MembersRepository {
 
      fun getAllMembers(): Flow<List<MemberDomain>>
 
+     suspend fun addMemberByUUID(UUID: String)
+
 }

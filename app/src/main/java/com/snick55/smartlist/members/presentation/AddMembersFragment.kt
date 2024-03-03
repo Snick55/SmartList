@@ -51,8 +51,11 @@ class AddMembersFragment : Fragment(R.layout.fragment_add_members) {
         viewModel.state.observe(viewLifecycleOwner){
             binding.progress.isVisible = it is Loading
             binding.addMembersRecyclerView.isVisible = it is Success
+            binding.errorTextView.isVisible = it is Failure
             if (it is Success){
                 adapter.submitList(it.users)
+            }else if(it is Failure){
+                binding.errorTextView.text = it.error
             }
         }
 

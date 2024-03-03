@@ -17,7 +17,7 @@ class MembersRepositoryImpl @Inject constructor(
 
         return detailsDataSource.getAllMembersInList().map { listMembersDomain->
             listMembersDomain.map {
-                MemberDomain(it.name,it.phoneNumber)
+                MemberDomain(it.name,it.phoneNumber,it.UUID)
             }
         }
     }
@@ -25,8 +25,12 @@ class MembersRepositoryImpl @Inject constructor(
     override  fun getAllMembers(): Flow<List<MemberDomain>> {
       return  detailsDataSource.getAllMembers().map {listMembersDomain->
           listMembersDomain.map {
-              MemberDomain(it.name,it.phoneNumber)
+              MemberDomain(it.name,it.phoneNumber,it.UUID)
           }
       }
+    }
+
+    override suspend fun addMemberByUUID(UUID: String) {
+        detailsDataSource.addMemberByUUID(UUID)
     }
 }

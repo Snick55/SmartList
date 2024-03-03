@@ -21,9 +21,11 @@ interface DetailsDataSource {
     fun getAllItems(listId: String): Flow<List<DetailsItemData>>
     suspend fun createProduct(name: String, count: String, dateFrom: String, dateTo: String)
 
-     fun getAllMembersInList(): Flow<List<MemberData>>
+    fun getAllMembersInList(): Flow<List<MemberData>>
 
     fun getAllMembers(): Flow<List<MemberData>>
+
+    suspend fun addMemberByUUID(UUID: String)
 
     @Singleton
     class DetailsDataSourceImpl @Inject constructor(
@@ -40,7 +42,7 @@ interface DetailsDataSource {
         )
 
         private val sharedFlowMembers = MutableSharedFlow<List<MemberData>>(
-            replay = 1, extraBufferCapacity = 1 ,onBufferOverflow = BufferOverflow.DROP_LATEST
+            replay = 1, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_LATEST
         )
 
         private var currentListId = ""
@@ -70,7 +72,7 @@ interface DetailsDataSource {
                                 isDone as Boolean
                             )
                             list.add(
-                               itemData
+                                itemData
                             )
                         }
                     sharedFlowDetails.tryEmit(list)
@@ -103,17 +105,19 @@ interface DetailsDataSource {
 
         }
 
-            override  fun getAllMembersInList(): Flow<List<MemberData>> {
+        override fun getAllMembersInList(): Flow<List<MemberData>> {
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
-                ValueEventListener{
+                ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val membersList = mutableListOf<MemberData>()
                     snapshot.child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid)
-                        .child(currentListId).child("members").children.forEach{
+                        .child(currentListId).child("members").children.forEach {
                             val userId = it.key ?: return
-                            val name = snapshot.child("users").child(userId).child("name").value ?: ""
-                            val phone = snapshot.child("users").child(userId).child("phone").value ?: ""
-                            membersList.add(MemberData(name as String,phone as String,userId))
+                            val name =
+                                snapshot.child("users").child(userId).child("name").value ?: ""
+                            val phone =
+                                snapshot.child("users").child(userId).child("phone").value ?: ""
+                            membersList.add(MemberData(name as String, phone as String, userId))
                         }
                     sharedFlowMembersInList.tryEmit(membersList)
                 }
@@ -126,17 +130,16 @@ interface DetailsDataSource {
             return sharedFlowMembersInList
         }
 
-
         override fun getAllMembers(): Flow<List<MemberData>> {
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
-                ValueEventListener{
+                ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val membersList = mutableListOf<MemberData>()
                     snapshot.child("usersByPhone").children.forEach {
                         val phone = it.key ?: return
                         val name = it.child("name").value ?: ""
-                        val userId = it.child("userID").value ?:""
-                        val member = MemberData(name as String,phone,userId as String)
+                        val userId = it.child("userID").value ?: ""
+                        val member = MemberData(name as String, phone, userId as String)
                         membersList.add(member)
                     }
                     sharedFlowMembers.tryEmit(membersList)
@@ -148,6 +151,13 @@ interface DetailsDataSource {
 
             })
             return sharedFlowMembers
+        }
+
+
+        override suspend fun addMemberByUUID(UUID: String) {
+            val userId = firebaseProvider.provideAuth().currentUser!!.uid
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child(currentListId).child("members").child(UUID).setValue("member")
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child(currentListId).child("members").child(UUID).setValue("member")
         }
     }
 

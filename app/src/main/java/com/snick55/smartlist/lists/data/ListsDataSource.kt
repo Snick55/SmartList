@@ -23,43 +23,67 @@ interface ListsDataSource {
         private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
     ) : ListsDataSource {
 
-        private val sharedFlow = MutableStateFlow<Container <List<ListItemData>>>(Container.Success(
-            emptyList())
+        private val sharedFlow = MutableStateFlow<Container<List<ListItemData>>>(
+            Container.Success(
+                emptyList()
+            )
         )
 
 
         init {
             val acc = firebaseProvider.provideAuth().currentUser
-                firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
-                    ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val list: MutableList<ListItemData> = mutableListOf()
-                        if (acc == null) return
-                        snapshot.child("lists").child(acc.uid).children.forEach {
-                            val id =it.key.toString()
-                            val name =it.child("name").value.toString()
-                            val date = it.child("date").value ?: return
-                            list.add(ListItemData(id, name, date.toString()))
-                        }
-                        sharedFlow.tryEmit(Container.Success(list))
+            firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val list: MutableList<ListItemData> = mutableListOf()
+                    if (acc == null) return
+                    snapshot.child("lists").child(acc.uid).children.forEach {
+                        val id = it.key.toString()
+                        val name = it.child("name").value.toString()
+                        val date = it.child("date").value ?: return
+                        list.add(ListItemData(id, name, date.toString()))
                     }
 
-                    override fun onCancelled(error: DatabaseError) {
-
-                        Container.Error(GenericException())
+                    snapshot.child("allLists").children.forEach {
+                        val id = it.key.toString()
+                        val name = it.child("name").value.toString()
+                        val date = it.child("date").value ?: return
+                        list.add(ListItemData(id, name, date.toString()))
                     }
-                })
+                    sharedFlow.tryEmit(Container.Success(list))
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                    Container.Error(GenericException())
+                }
+            })
         }
 
         override suspend fun createList(listName: String) {
             val userId = firebaseProvider.provideAuth().currentUser!!.uid
             val uuid = UUID.randomUUID()
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("name").setValue(listName)
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("members").child(userId).setValue(userId)
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid").child("date").setValue("${System.currentTimeMillis()}")
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
+                .child("name").setValue(listName)
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
+                .child("members").child(userId).setValue(userId)
+            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
+                .child("date").setValue("${System.currentTimeMillis()}")
+
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child("$uuid").child("name")
+                .setValue(listName)
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child("$uuid")
+                .child("members").child(userId).setValue("creator")
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child("$uuid").child("date")
+                .setValue("${System.currentTimeMillis()}")
+
+
         }
 
-        override fun getAllLists(): Flow<Container<List<ListItemData>>> =  sharedFlow
+
+        override fun getAllLists(): Flow<Container<List<ListItemData>>> {
+            return sharedFlow
+        }
     }
 
 }

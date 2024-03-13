@@ -55,7 +55,7 @@ interface DetailsDataSource {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list: MutableList<DetailsItemData> = mutableListOf()
                     if (currentUser == null) return
-                    snapshot.child("lists").child(currentUser.uid).child(listId).child("details")
+                    snapshot.child("allLists").child(listId).child("details")
                         .child("items").children.forEach {
                             val id = it.key.toString()
                             val name = it.child("name").value.toString()
@@ -92,9 +92,8 @@ interface DetailsDataSource {
             dateTo: String
         ) {
             val productId = "$name+${UUID.randomUUID()}"
-            val userId = firebaseProvider.provideAuth().currentUser!!.uid
-            val ref = firebaseDatabaseProvider.provideDBRef().child("lists")
-                .child(userId).child(currentListId)
+            val ref = firebaseDatabaseProvider.provideDBRef().child("allLists")
+                .child(currentListId)
                 .child("details").child("items").child(productId)
 
             ref.child("name").setValue(name)
@@ -110,7 +109,7 @@ interface DetailsDataSource {
                 ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val membersList = mutableListOf<MemberData>()
-                    snapshot.child("lists").child(firebaseProvider.provideAuth().currentUser!!.uid)
+                    snapshot.child("allLists")
                         .child(currentListId).child("members").children.forEach {
                             val userId = it.key ?: return
                             val name =
@@ -155,8 +154,6 @@ interface DetailsDataSource {
 
 
         override suspend fun addMemberByUUID(UUID: String) {
-            val userId = firebaseProvider.provideAuth().currentUser!!.uid
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child(currentListId).child("members").child(UUID).setValue("member")
             firebaseDatabaseProvider.provideDBRef().child("allLists").child(currentListId).child("members").child(UUID).setValue("member")
         }
     }

@@ -6,10 +6,10 @@ import com.google.firebase.database.ValueEventListener
 import com.snick55.smartlist.core.Container
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
-import com.snick55.smartlist.core.log
 import com.snick55.smartlist.login.domain.GenericException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import java.util.UUID
 import javax.inject.Inject
 
@@ -24,9 +24,7 @@ interface ListsDataSource {
     ) : ListsDataSource {
 
         private val sharedFlow = MutableStateFlow<Container<List<ListItemData>>>(
-            Container.Success(
-                emptyList()
-            )
+            Container.Success(emptyList())
         )
 
 
@@ -37,18 +35,16 @@ interface ListsDataSource {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list: MutableList<ListItemData> = mutableListOf()
                     if (acc == null) return
-                    snapshot.child("lists").child(acc.uid).children.forEach {
-                        val id = it.key.toString()
-                        val name = it.child("name").value.toString()
-                        val date = it.child("date").value ?: return
-                        list.add(ListItemData(id, name, date.toString()))
-                    }
 
                     snapshot.child("allLists").children.forEach {
+                        val membersList = mutableListOf<String>()
                         val id = it.key.toString()
                         val name = it.child("name").value.toString()
+                        it.child("members").children.forEach { members ->
+                            membersList.add((members.key) as String)
+                        }
                         val date = it.child("date").value ?: return
-                        list.add(ListItemData(id, name, date.toString()))
+                        list.add(ListItemData(id, name, date.toString(), membersList))
                     }
                     sharedFlow.tryEmit(Container.Success(list))
                 }
@@ -63,13 +59,6 @@ interface ListsDataSource {
         override suspend fun createList(listName: String) {
             val userId = firebaseProvider.provideAuth().currentUser!!.uid
             val uuid = UUID.randomUUID()
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
-                .child("name").setValue(listName)
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
-                .child("members").child(userId).setValue(userId)
-            firebaseDatabaseProvider.provideDBRef().child("lists").child(userId).child("$uuid")
-                .child("date").setValue("${System.currentTimeMillis()}")
-
             firebaseDatabaseProvider.provideDBRef().child("allLists").child("$uuid").child("name")
                 .setValue(listName)
             firebaseDatabaseProvider.provideDBRef().child("allLists").child("$uuid")
@@ -81,8 +70,12 @@ interface ListsDataSource {
         }
 
 
-        override fun getAllLists(): Flow<Container<List<ListItemData>>> {
-            return sharedFlow
+        override fun getAllLists(): Flow<Container<List<ListItemData>>> = flow {
+            sharedFlow.collect {
+                emit(Container.Success(it.unwrap().filter { item ->
+                    item.members.contains("${firebaseProvider.provideAuth().uid}")
+                }))
+            }
         }
     }
 

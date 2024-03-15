@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 interface ListsDataSource {
     fun getAllLists(): Flow<Container<List<ListItemData>>>
+    suspend fun leaveAndDelete(listId: String)
 
     suspend fun createList(listName: String)
     class ListsDataSourceImpl @Inject constructor(
@@ -69,6 +70,10 @@ interface ListsDataSource {
 
         }
 
+        override suspend fun leaveAndDelete(listId: String) {
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child(listId).child("members")
+                .child(firebaseProvider.provideAuth().currentUser!!.uid).setValue(null)
+        }
 
         override fun getAllLists(): Flow<Container<List<ListItemData>>> = flow {
             sharedFlow.collect {

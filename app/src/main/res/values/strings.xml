@@ -28,4 +28,5 @@
     <string name="enter_product_count">Введите количество продукта</string>
     <string name="members_title">Участники</string>
     <string name="confirm_add_member">Вы уверены что хотите добавить данного пользователя?</string>
+    <string name="confirm_delete_list">Вы действительно хотите выйти и удалить данный список?</string>
 </resources>

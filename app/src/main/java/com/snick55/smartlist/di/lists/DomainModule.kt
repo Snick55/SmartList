@@ -1,6 +1,7 @@
 package com.snick55.smartlist.di.lists
 
 import com.snick55.smartlist.lists.domain.CreateNewListUseCase
+import com.snick55.smartlist.lists.domain.DeleteAndLeaveUseCase
 import com.snick55.smartlist.lists.domain.GetAllItemsUseCase
 import com.snick55.smartlist.lists.domain.GetAllListsUseCase
 import com.snick55.smartlist.members.domain.AddMemberToListUseCase
@@ -30,6 +31,8 @@ abstract class DomainModule {
     @Binds
     abstract fun bindGetAllUsersByPhoneUseCase(useCase: GetAllUsersByPhoneUseCase.GetAllUsersByPhoneUseCaseImpl): GetAllUsersByPhoneUseCase
 
+    @Binds
+    abstract fun bindDeleteAndLeaveUseCase(useCase: DeleteAndLeaveUseCase.DeleteAndLeaveUseCaseImpl): DeleteAndLeaveUseCase
     @Binds
     abstract fun bindAddMemberToListUseCase(useCase: AddMemberToListUseCase.AddMemberToListUseCaseImpl): AddMemberToListUseCase
 

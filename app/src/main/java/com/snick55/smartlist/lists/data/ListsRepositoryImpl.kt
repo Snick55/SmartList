@@ -22,6 +22,10 @@ class ListsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun leaveAndDelete(listId: String) {
+        listsDataSource.leaveAndDelete(listId)
+    }
+
     override suspend fun createNewList(listName: String) {
         listsDataSource.createList(listName)
     }

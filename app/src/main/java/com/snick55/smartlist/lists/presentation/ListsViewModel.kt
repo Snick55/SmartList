@@ -3,9 +3,9 @@ package com.snick55.smartlist.lists.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snick55.smartlist.core.Container
-import com.snick55.smartlist.core.log
 import com.snick55.smartlist.di.IoDispatcher
 import com.snick55.smartlist.di.MainDispatcher
+import com.snick55.smartlist.lists.domain.DeleteAndLeaveUseCase
 import com.snick55.smartlist.lists.domain.GetAllListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,6 +22,7 @@ class ListsViewModel @Inject constructor(
     private val getAllListsUseCase: GetAllListsUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
+    private val deleteAndLeaveUseCase: DeleteAndLeaveUseCase
 ) : ViewModel() {
 
 
@@ -40,6 +41,10 @@ class ListsViewModel @Inject constructor(
 
     fun tryAgain() = viewModelScope.launch(ioDispatcher) {
         getAllListsUseCase.execute()
+    }
+
+    fun leaveAndDeleteList(listId: String) = viewModelScope.launch(ioDispatcher) {
+        deleteAndLeaveUseCase.execute(listId)
     }
 }
 

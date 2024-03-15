@@ -9,4 +9,6 @@ interface ListsRepository {
 
     suspend fun createNewList(listName: String)
 
+    suspend fun leaveAndDelete(listId: String)
+
 }

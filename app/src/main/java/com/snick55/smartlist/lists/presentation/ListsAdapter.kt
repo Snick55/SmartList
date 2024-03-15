@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.snick55.smartlist.databinding.ListItemBinding
 
 class ListsAdapter(
-   private val onListClicked: (String,String) -> Unit
-): ListAdapter<ListItemUi, ListsAdapter.MyViewHolder>(ListUiDiffCallback()), View.OnClickListener {
+   private val onListClicked: (String,String) -> Unit,
+    private val onLongItemClicked: (id:String)-> Unit
+): ListAdapter<ListItemUi, ListsAdapter.MyViewHolder>(ListUiDiffCallback()), View.OnClickListener,View.OnLongClickListener {
 
     inner class MyViewHolder(private val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(itemUi: ListItemUi){
@@ -24,6 +25,7 @@ class ListsAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemBinding.inflate(inflater,parent,false)
         binding.root.setOnClickListener(this)
+        binding.root.setOnLongClickListener(this)
         return MyViewHolder(binding)
     }
 
@@ -34,6 +36,12 @@ class ListsAdapter(
     override fun onClick(view: View) {
        val itemUi = view.tag as ListItemUi
         onListClicked.invoke(itemUi.id,itemUi.name)
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        val itemUi = view.tag as ListItemUi
+        onLongItemClicked.invoke(itemUi.id)
+        return true
     }
 
     class ListUiDiffCallback : DiffUtil.ItemCallback<ListItemUi>() {

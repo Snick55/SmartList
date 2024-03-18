@@ -26,6 +26,7 @@ interface DetailsDataSource {
     fun getAllMembers(): Flow<List<MemberData>>
 
     suspend fun addMemberByUUID(UUID: String)
+    suspend fun deleteItem(id: String)
 
     @Singleton
     class DetailsDataSourceImpl @Inject constructor(
@@ -33,12 +34,12 @@ interface DetailsDataSource {
         private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
     ) : DetailsDataSource {
 
-        private val sharedFlowDetails = MutableStateFlow<List<DetailsItemData>>(
-            emptyList()
+        private val sharedFlowDetails = MutableSharedFlow<List<DetailsItemData>>(
+            replay = 1, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_LATEST
         )
 
-        private val sharedFlowMembersInList = MutableStateFlow<List<MemberData>>(
-            emptyList()
+        private val sharedFlowMembersInList = MutableSharedFlow<List<MemberData>>(
+            replay = 1, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_LATEST
         )
 
         private val sharedFlowMembers = MutableSharedFlow<List<MemberData>>(
@@ -129,6 +130,11 @@ interface DetailsDataSource {
             return sharedFlowMembersInList
         }
 
+        override suspend fun deleteItem(id: String) {
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child(currentListId).child("details")
+                .child("items").child(id).setValue(null)
+        }
+
         override fun getAllMembers(): Flow<List<MemberData>> {
             firebaseDatabaseProvider.provideDBRef().addValueEventListener(object :
                 ValueEventListener {
@@ -154,7 +160,8 @@ interface DetailsDataSource {
 
 
         override suspend fun addMemberByUUID(UUID: String) {
-            firebaseDatabaseProvider.provideDBRef().child("allLists").child(currentListId).child("members").child(UUID).setValue("member")
+            firebaseDatabaseProvider.provideDBRef().child("allLists").child(currentListId)
+                .child("members").child(UUID).setValue("member")
         }
     }
 

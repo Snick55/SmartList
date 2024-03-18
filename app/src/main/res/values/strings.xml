@@ -21,7 +21,7 @@
     <string name="add_members_cont_desc">добавить пользователей</string>
     <string name="details_item_date">%1$s - %2$s</string>
     <string name="confirm_content_desc">Подтвердить</string>
-    <string name="enter_name_of_product">Введите название продукта</string>
+    <string name="enter_name_of_product">Введите название продукта*</string>
     <string name="enter_correct_date_of_product">Введите допустимую дату изготовления продукта</string>
     <string name="date_from_title">От</string>
     <string name="date_to_title">До</string>
@@ -29,4 +29,6 @@
     <string name="members_title">Участники</string>
     <string name="confirm_add_member">Вы уверены что хотите добавить данного пользователя?</string>
     <string name="confirm_delete_list">Вы действительно хотите выйти и удалить данный список?</string>
+    <string name="confirm_delete_item">Вы действительно хотетите удалить данный продукт?</string>
+    <string name="enter_name_hint">введите имя</string>
 </resources>

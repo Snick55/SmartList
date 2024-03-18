@@ -78,10 +78,10 @@
 
                 <TextView
                     android:id="@+id/listNameTV"
-                    android:paddingVertical="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:paddingVertical="12dp"
                     android:text="Добавьте продукт"
                     android:textColor="@color/white"
                     android:textSize="32sp" />
@@ -109,7 +109,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_name_of_product"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,7 +133,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_product_count"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,7 +173,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/date_from_title"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:inputType="date"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -177,7 +183,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="-"
                 android:textColor="@color/black"
                 android:textSize="32sp" />
 
@@ -200,7 +205,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/date_to_title"
-                    android:imeOptions="actionDone" />
+                    android:imeOptions="actionDone"
+                    android:inputType="date"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

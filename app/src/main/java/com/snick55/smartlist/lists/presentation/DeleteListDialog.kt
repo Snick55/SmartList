@@ -5,9 +5,9 @@ import com.snick55.smartlist.R
 
 object DeleteListDialog {
 
-    fun confirm(builder: AlertDialog.Builder, block: () -> Unit){
+    fun confirm(builder: AlertDialog.Builder,text: String, block: () -> Unit){
         val dialog = builder.create()
-        dialog.setTitle(R.string.confirm_delete_list)
+        dialog.setTitle(text)
         dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Да"){ _, _ ->
             block.invoke()
             dialog.dismiss()

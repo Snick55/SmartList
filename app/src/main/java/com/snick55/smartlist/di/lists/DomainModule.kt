@@ -2,6 +2,7 @@ package com.snick55.smartlist.di.lists
 
 import com.snick55.smartlist.lists.domain.CreateNewListUseCase
 import com.snick55.smartlist.lists.domain.DeleteAndLeaveUseCase
+import com.snick55.smartlist.lists.domain.DeleteItemUseCase
 import com.snick55.smartlist.lists.domain.GetAllItemsUseCase
 import com.snick55.smartlist.lists.domain.GetAllListsUseCase
 import com.snick55.smartlist.members.domain.AddMemberToListUseCase
@@ -35,6 +36,9 @@ abstract class DomainModule {
     abstract fun bindDeleteAndLeaveUseCase(useCase: DeleteAndLeaveUseCase.DeleteAndLeaveUseCaseImpl): DeleteAndLeaveUseCase
     @Binds
     abstract fun bindAddMemberToListUseCase(useCase: AddMemberToListUseCase.AddMemberToListUseCaseImpl): AddMemberToListUseCase
+
+    @Binds
+    abstract fun bindDeleteItemUseCse(useCase: DeleteItemUseCase.DeleteItemUseCaseImpl): DeleteItemUseCase
 
 
 }

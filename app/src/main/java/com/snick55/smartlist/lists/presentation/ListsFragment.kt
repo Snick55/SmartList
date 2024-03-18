@@ -27,7 +27,7 @@ class ListsFragment : Fragment(R.layout.fragment_lists) {
             findNavController().navigate(action)
         }, onLongItemClicked = { id ->
             val dialogBuilder = AlertDialog.Builder(requireContext())
-            DeleteListDialog.confirm(dialogBuilder) {
+            DeleteListDialog.confirm(dialogBuilder,getString(R.string.confirm_delete_list)) {
                 viewModel.leaveAndDeleteList(id)
             }
         })

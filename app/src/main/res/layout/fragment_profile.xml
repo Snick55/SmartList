@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.snick55.smartlist.core.ResultView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/ic_background">
 
 
@@ -26,36 +26,41 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:layout_marginBottom="200dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text ="899999999"
         android:id="@+id/numberTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <TextView
-        android:layout_marginBottom="150dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="200dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text ="899999999"
+        tools:text="899999999" />
+
+    <TextView
         android:id="@+id/nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginBottom="150dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="899999999" />
 
 
     <EditText
+        android:maxLines="1"
         android:id="@+id/nameET"
+        android:imeOptions="actionDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="80dp"
-        android:hint="введите имя" />
+        android:hint="@string/enter_name_hint"
+        android:autofillHints=""
+        android:inputType="text" />
 
     <Button
         android:id="@+id/testBtn"
+        android:backgroundTint="@color/title_view_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -63,6 +68,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout"
+        android:backgroundTint="@color/title_view_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"

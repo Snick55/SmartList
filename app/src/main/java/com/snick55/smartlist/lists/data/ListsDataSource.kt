@@ -7,8 +7,9 @@ import com.snick55.smartlist.core.Container
 import com.snick55.smartlist.core.FirebaseDatabaseProvider
 import com.snick55.smartlist.core.FirebaseProvider
 import com.snick55.smartlist.login.domain.GenericException
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import java.util.UUID
 import javax.inject.Inject
@@ -24,8 +25,8 @@ interface ListsDataSource {
         private val firebaseDatabaseProvider: FirebaseDatabaseProvider,
     ) : ListsDataSource {
 
-        private val sharedFlow = MutableStateFlow<Container<List<ListItemData>>>(
-            Container.Success(emptyList())
+        private val sharedFlow = MutableSharedFlow<Container<List<ListItemData>>>(
+            replay = 1, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_LATEST
         )
 
 

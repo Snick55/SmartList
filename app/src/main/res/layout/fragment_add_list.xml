@@ -6,6 +6,9 @@
 
     <EditText
         android:id="@+id/nameET"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
         android:hint="Введите название"
         android:layout_marginHorizontal="@dimen/large_space"
         android:layout_gravity="center"
@@ -13,6 +16,7 @@
         android:layout_height="wrap_content"/>
 
     <Button
+        android:backgroundTint="@color/title_view_color"
         android:id="@+id/createListButton"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"

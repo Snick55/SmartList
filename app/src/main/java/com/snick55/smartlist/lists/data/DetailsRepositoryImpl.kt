@@ -10,6 +10,9 @@ class DetailsRepositoryImpl @Inject constructor(
     private val detailsDataSource: DetailsDataSource
 ): DetailsRepository {
 
+    override suspend fun deleteItem(id: String) {
+        detailsDataSource.deleteItem(id)
+    }
 
     override fun getAllItems(listId:String): Flow<List<DetailsItemDomain>> {
         return detailsDataSource.getAllItems(listId).map {listData->

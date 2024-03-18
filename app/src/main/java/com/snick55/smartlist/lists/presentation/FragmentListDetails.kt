@@ -2,6 +2,7 @@ package com.snick55.smartlist.lists.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -39,7 +40,12 @@ class FragmentListDetails: Fragment(R.layout.fragment_list_details) {
             val action = FragmentListDetailsDirections.actionFragmentListDetailsToFragmentCreateProduct()
             findNavController().navigate(action)
         }
-        val adapter = DetailsAdapter()
+        val adapter = DetailsAdapter(onLongPressed = {id->
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+            DeleteListDialog.confirm(dialogBuilder,getString(R.string.confirm_delete_item)) {
+                viewModel.deleteItem(id)
+            }
+        })
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {

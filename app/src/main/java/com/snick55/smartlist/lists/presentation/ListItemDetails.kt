@@ -6,5 +6,5 @@ data class ListItemDetails(
     val count: String,
     val dateFrom: String,
     val dateTo: String,
-    val isDone: Boolean
+    val isDone: Boolean,
 )

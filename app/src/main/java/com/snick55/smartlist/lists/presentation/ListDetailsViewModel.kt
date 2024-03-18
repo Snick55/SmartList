@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snick55.smartlist.di.IoDispatcher
 import com.snick55.smartlist.di.MainDispatcher
+import com.snick55.smartlist.lists.domain.DeleteItemUseCase
 import com.snick55.smartlist.lists.domain.GetAllItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class ListDetailsViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
-    private val getAllItemsUseCase: GetAllItemsUseCase
+    private val getAllItemsUseCase: GetAllItemsUseCase,
+    private val deleteItemUseCase: DeleteItemUseCase
 ) : ViewModel() {
 
     private val _items = MutableStateFlow<List<ListItemDetails>>(emptyList())
@@ -36,5 +38,7 @@ class ListDetailsViewModel @Inject constructor(
             }
     }
 
-
+    fun deleteItem(id: String)= viewModelScope.launch(ioDispatcher) {
+        deleteItemUseCase.execute(id)
+    }
 }

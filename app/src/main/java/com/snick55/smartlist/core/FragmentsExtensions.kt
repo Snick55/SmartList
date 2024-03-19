@@ -18,7 +18,7 @@ fun Fragment.findTopNavController(): NavController {
 }
 
 fun Fragment.paintButton(flag: Boolean, button: Button){
-    val color = if (flag) R.color.title_view_color else R.color.gray
+    val color = if (flag) R.color.clickable_background else R.color.gray
     button.isEnabled = flag
     button.background.setTint(ContextCompat.getColor(button.context,color))
 }

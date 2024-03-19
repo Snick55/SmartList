@@ -31,7 +31,7 @@
             tools:text="Что то пошло не так" />
 
         <Button
-            android:backgroundTint="@color/title_view_color"
+            android:backgroundTint="@color/clickable_background"
             android:id="@+id/tryAgainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

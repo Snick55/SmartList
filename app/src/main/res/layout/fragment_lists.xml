@@ -50,6 +50,8 @@
         android:id="@+id/addNewList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/appFloatActionButton"
+        android:backgroundTint="@color/clickable_background"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/medium_space"
         android:contentDescription="@string/create_new_list_content_description"

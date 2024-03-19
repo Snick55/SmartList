@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:backgroundTint="@color/title_view_color"
+        android:backgroundTint="@color/clickable_background"
         android:text="@string/Continue_title"
         android:textColor="@color/white"
         android:textSize="24sp"

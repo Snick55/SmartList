@@ -10,4 +10,5 @@
     <color name="gray">#8A8B9D</color>
     <color name="title_view_color">#19345D</color>
     <color name="secondary_background">#5B82BD</color>
+    <color name="clickable_background">#222174</color>
 </resources>

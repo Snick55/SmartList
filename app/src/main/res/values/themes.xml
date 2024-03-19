@@ -19,6 +19,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="appFloatActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton" >
+        <item name="backgroundTint"> @color/clickable_background</item>
+        <item name="tint">@color/white</item>
+    </style>
+
 
 
 

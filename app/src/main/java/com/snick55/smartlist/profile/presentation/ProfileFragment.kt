@@ -18,21 +18,6 @@ import com.snick55.smartlist.core.*
 import com.snick55.smartlist.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
-//datbRef.addValueEventListener(object : ValueEventListener {
-//    override fun onDataChange(dataSnapshot: DataSnapshot) {
-//        log("${dataSnapshot.child("users").value}")
-//        val name = dataSnapshot.child("users").value
-////                if (name == null) return
-////                binding.test.text = name as String
-//    }
-//
-//    override fun onCancelled(databaseError: DatabaseError) {
-//        // Getting Post failed, log a message
-//        Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
-//    }
-//})
-
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -44,7 +29,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.root.observe(viewLifecycleOwner, viewModel.account) {
+        binding.resultView.observe(viewLifecycleOwner, viewModel.account) {
             curName = it.name
             binding.nameTV.text = it.name
             binding.numberTV.text = it.phone
@@ -52,10 +37,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
 
         binding.testBtn.setOnClickListener {
-            val name = binding.nameET.text.trim().toString()
+            val name = binding.nameET.text?.trim().toString()
             if (curName == name) return@setOnClickListener
             viewModel.changeName(name)
-            binding.nameET.text.clear()
+            binding.nameET.text?.clear()
             binding.nameET.clearFocus()
         }
 

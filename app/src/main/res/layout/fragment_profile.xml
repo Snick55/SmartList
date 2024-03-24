@@ -1,79 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.snick55.smartlist.core.ResultView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_background">
+   >
 
-
-    <androidx.cardview.widget.CardView
+    <com.snick55.smartlist.core.ResultView
+        android:id="@+id/resultView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="36dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/title_view_color"
-        app:cardCornerRadius="16dp">
+        android:background="@drawable/main_back"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/title_view_color"
+            app:cardCornerRadius="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/profile_title"
+                android:textColor="@color/white"
+                android:textSize="32sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/title_view_color"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_profile_placeholder" />
+
+                <TextView
+                    android:id="@+id/numberTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="31sp"
+                    android:textStyle="bold"
+                    tools:text="899999999" />
+
+                <TextView
+                    android:id="@+id/nameTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    tools:text="899999999" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneTextInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/profile_title"
-            android:textColor="@color/white"
-            android:textSize="32sp" />
+            android:layout_marginHorizontal="@dimen/large_space"
+            app:boxCornerRadiusBottomEnd="32dp"
+            app:boxCornerRadiusBottomStart="32dp"
+            app:boxCornerRadiusTopEnd="32dp"
+            app:boxCornerRadiusTopStart="32dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp">
 
-    </androidx.cardview.widget.CardView>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:autofillHints=""
+                android:hint="@string/add_name_title"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"  />
 
-    <TextView
-        android:id="@+id/numberTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="200dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="899999999" />
-
-    <TextView
-        android:id="@+id/nameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="150dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="899999999" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
-        android:maxLines="1"
-        android:id="@+id/nameET"
-        android:imeOptions="actionDone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="80dp"
-        android:hint="@string/enter_name_hint"
-        android:autofillHints=""
-        android:inputType="text" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/testBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="85dp"
+            android:backgroundTint="@color/title_view_color"
+            android:text="@string/add_name_title"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
 
-    <Button
-        android:id="@+id/testBtn"
-        android:backgroundTint="@color/title_view_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Добавить имя" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/logout"
-        android:backgroundTint="@color/title_view_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/medium_space"
-        android:text="выйти" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="170dp"
+            android:backgroundTint="@color/title_view_color"
+            android:text="@string/logout_title"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
+    </com.snick55.smartlist.core.ResultView>
 
 
-</com.snick55.smartlist.core.ResultView>
+
+
+
+</ScrollView>

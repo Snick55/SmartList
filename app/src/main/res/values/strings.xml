@@ -31,4 +31,6 @@
     <string name="confirm_delete_list">Вы действительно хотите выйти и удалить данный список?</string>
     <string name="confirm_delete_item">Вы действительно хотетите удалить данный продукт?</string>
     <string name="enter_name_hint">введите имя</string>
+    <string name="add_name_title">Изменить имя</string>
+    <string name="logout_title">выйти</string>
 </resources>

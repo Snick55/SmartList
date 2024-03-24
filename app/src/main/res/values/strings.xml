@@ -33,4 +33,6 @@
     <string name="enter_name_hint">введите имя</string>
     <string name="add_name_title">Изменить имя</string>
     <string name="logout_title">выйти</string>
+    <string name="enter_list_name_title">Введите название</string>
+    <string name="create_list_title">Создать</string>
 </resources>

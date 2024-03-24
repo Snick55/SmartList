@@ -38,7 +38,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.testBtn.setOnClickListener {
             val name = binding.nameET.text?.trim().toString()
-            if (curName == name) return@setOnClickListener
+            if (curName == name || name.isEmpty()) return@setOnClickListener
             viewModel.changeName(name)
             binding.nameET.text?.clear()
             binding.nameET.clearFocus()

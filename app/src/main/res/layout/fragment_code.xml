@@ -31,6 +31,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="26dp"
         app:boxCornerRadiusBottomEnd="32dp"
+        android:textColorHint="@color/black"
         app:boxCornerRadiusBottomStart="32dp"
         app:boxCornerRadiusTopEnd="32dp"
         app:boxCornerRadiusTopStart="32dp"
@@ -39,8 +40,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeEditText"
+            android:backgroundTint="@color/white"
             android:hint="@string/enter_code_title"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:layout_height="match_parent"
             android:inputType="number" />
 

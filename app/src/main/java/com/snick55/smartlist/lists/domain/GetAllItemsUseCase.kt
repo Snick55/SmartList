@@ -12,26 +12,10 @@ interface GetAllItemsUseCase {
 
     class GetAllItemsUseCaseImpl @Inject constructor(
         private val repository: DetailsRepository,
-        private val dateFormater: DateFormater
     ) : GetAllItemsUseCase {
 
         override fun execute(listId: String): Flow<List<DetailsItemDomain>> {
-            return repository.getAllItems(listId).map { listDomain ->
-                listDomain.map {
-                    it.copy(
-                        dateFrom = try {
-                            dateFormater.format(it.dateFrom.toLong())
-                        } catch (e: Exception) {
-                            it.dateFrom
-                        },
-                        dateTo = try {
-                            dateFormater.format(it.dateTo.toLong())
-                        } catch (e: Exception) {
-                            it.dateTo
-                        }
-                    )
-                }
-            }
+            return repository.getAllItems(listId)
         }
     }
 

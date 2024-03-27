@@ -79,6 +79,7 @@
             android:id="@+id/phoneTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/large_space"
             app:boxCornerRadiusBottomEnd="32dp"
@@ -90,9 +91,12 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameET"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:backgroundTint="@color/white"
                 android:autofillHints=""
                 android:hint="@string/add_name_title"
                 android:imeOptions="actionDone"

@@ -23,6 +23,9 @@
         <argument
             android:name="verificationId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_codeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/tabsFragment"

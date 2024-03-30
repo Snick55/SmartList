@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.snick55.smartlist.R
 import com.snick55.smartlist.core.log
 import com.snick55.smartlist.core.viewBinding
@@ -24,6 +25,10 @@ class AddMembersFragment : Fragment(R.layout.fragment_add_members) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.goBack.observe(viewLifecycleOwner){
+            if (it) findNavController().popBackStack()
+        }
 
         binding.findMemberSearchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {

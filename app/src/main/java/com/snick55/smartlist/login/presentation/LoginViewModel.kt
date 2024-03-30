@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.snick55.smartlist.core.AppExceptions
 import com.snick55.smartlist.core.Container
 import com.snick55.smartlist.core.LiveContainer
 import com.snick55.smartlist.core.MutableLiveContainer
@@ -20,6 +21,7 @@ import com.snick55.smartlist.login.domain.GetCodeByNumberUseCase
 import com.snick55.smartlist.login.domain.entities.PhoneRequestWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -33,23 +35,25 @@ class LoginViewModel @Inject constructor(
     private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
+    private var job: Job? = null
 
-
-    fun getCode( phoneNumber: String, activity: FragmentActivity) = viewModelScope.launch(ioDispatcher) {
-        withContext(mainDispatcher){
-            communication.showProgress()
-        }
-        try {
-            useCase.execute(PhoneRequestWrapper(phoneNumber, activity,callback))
-        }catch (e:java.lang.Exception){
-            withContext(mainDispatcher){
-                log("error is $e")
-                communication.map(errorHandler.handle(e))
+    fun getCode(phoneNumber: String, activity: FragmentActivity) {
+        job?.cancel()
+        job = viewModelScope.launch(ioDispatcher) {
+            withContext(mainDispatcher) {
+                communication.showProgress()
+            }
+            try {
+                useCase.execute(PhoneRequestWrapper(phoneNumber, activity, callback))
+            } catch (e: AppExceptions) {
+                withContext(mainDispatcher) {
+                    communication.map(errorHandler.handle(e))
+                }
             }
         }
     }
 
-    fun observeState(owner: LifecycleOwner, observer: Observer<State>){
+    fun observeState(owner: LifecycleOwner, observer: Observer<State>) {
         communication.observe(owner, observer)
     }
 

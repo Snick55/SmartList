@@ -27,8 +27,10 @@ class AddMembersViewModel @Inject constructor(
     private val _state = MutableLiveData<State>()
     val state: LiveData<State> = _state
 
-   private var job: Job? = null
+    private var job: Job? = null
 
+    private val _goBack = MutableLiveData<Boolean>()
+    val goBack: LiveData<Boolean> = _goBack
 
     fun getUsersByPhone(phoneNumber: String) {
         job?.cancel()
@@ -39,13 +41,24 @@ class AddMembersViewModel @Inject constructor(
                     _state.postValue(State.Failure(it.message ?: ""))
                 }
                 .collectLatest { users ->
-                    _state.postValue(State.Success(users.map { MemberUi(it.name, it.phoneNumber,it.UUID) }))
+                    _state.postValue(State.Success(users.map {
+                        MemberUi(
+                            it.name,
+                            it.phoneNumber,
+                            it.UUID
+                        )
+                    }))
                 }
         }
     }
 
-    fun addMember(member: MemberUi) = viewModelScope.launch(ioDispatcher){
-        addMemberToListUseCase.execute(member.UUID)
+    fun addMember(member: MemberUi) = viewModelScope.launch {
+     val addMemberJob =   viewModelScope.launch(ioDispatcher) {
+            addMemberToListUseCase.execute(member.UUID)
+        }
+        addMemberJob.join().also {
+            _goBack.value = true
+        }
     }
 
     sealed class State {

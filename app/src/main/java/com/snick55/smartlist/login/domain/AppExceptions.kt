@@ -7,6 +7,7 @@ class InvalidRequestException: AppExceptions("Некорректный запр�
 class RecaptchaException: AppExceptions("Recaptcha завершилась с ошибкой")
 class NoInternetException: AppExceptions("Отсутствует подключение к интернету")
 class GenericException: AppExceptions("Что то пошло не так")
+class ServerUnavailableException: AppExceptions("Неполадки с серверов, попробуйте позже")
 
 class EmptyFieldException(
     val field: Field

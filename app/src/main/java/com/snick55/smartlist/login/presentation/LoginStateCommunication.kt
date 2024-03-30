@@ -10,6 +10,7 @@ import com.snick55.smartlist.login.domain.Field
 import com.snick55.smartlist.login.domain.InvalidRequestException
 import com.snick55.smartlist.login.domain.NoInternetException
 import com.snick55.smartlist.login.domain.RecaptchaException
+import com.snick55.smartlist.login.domain.ServerUnavailableException
 import javax.inject.Inject
 
 interface LoginStateCommunication {
@@ -39,9 +40,14 @@ interface LoginStateCommunication {
                 is InvalidRequestException -> handleInvalidException()
                 is RecaptchaException -> handleRecaptchaException()
                 is NoInternetException -> handleNoInternetException()
+                is ServerUnavailableException -> handleServerUnavailableException()
                 else -> handleInvalidException()
             }
             hideProgress()
+        }
+
+        private fun handleServerUnavailableException() {
+            state.value = state.value?.copy(phoneErrorMessageRes = R.string.sever_unavailable)
         }
 
         override fun observe(

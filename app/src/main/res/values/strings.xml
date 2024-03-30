@@ -35,4 +35,5 @@
     <string name="logout_title">выйти</string>
     <string name="enter_list_name_title">Введите название</string>
     <string name="create_list_title">Создать</string>
+    <string name="sever_unavailable">Неполадки с серверов, попробуйте позже</string>
 </resources>

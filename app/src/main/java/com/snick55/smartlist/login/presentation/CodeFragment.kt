@@ -31,6 +31,15 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
             viewModel.signInWithCode(binding.codeEditText.text.toString(), args.verificationId)
         }
 
+        binding.goBackButton.setOnClickListener {
+            findTopNavController().navigate(R.id.action_codeFragment_to_loginFragment,null,
+                navOptions {
+                    popUpTo(R.id.loginFragment){
+                        inclusive = true
+                    }
+                })
+        }
+
         viewModel.state.observe(viewLifecycleOwner) { state ->
             fillError(binding.codeInputLayout, state.codeErrorMessageRes)
             binding.progressBar.visibility =

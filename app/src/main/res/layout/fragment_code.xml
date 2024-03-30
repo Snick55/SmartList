@@ -5,12 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/goBackButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/medium_space"
+        android:layout_marginHorizontal="36dp"
+        android:backgroundTint="@color/title_view_color"
+        app:cardCornerRadius="16dp">
+
+        <ImageView
+            android:src="@drawable/ic_go_back_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@color/title_view_color"
         app:cardCornerRadius="16dp">
 
